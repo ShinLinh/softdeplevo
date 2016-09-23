@@ -13,7 +13,7 @@
 
 <?php
 	require_once("LogonDetails.php");
-	$link = @mysqli_connect($host, $user, $password);
+	$link = @mysqli_connect($host, $user, $password, $current_db);
 ?>
 
 <form method="get">
@@ -21,20 +21,20 @@ Name: <input type="text" name="name" value=""><br>
 Date Of Birth: <input type="date" name="date"><br>
 <input type="submit">
 <?php
-	if($link == true){
-		echo "connected";
+	if($link){
+		echo "<p>connected</p>";
 		$select_db = mysqli_select_db('SDE_db');
 		if ($select_db == true)
 		{
-			echo "selected";
+			echo "<p>selected</p>";
 		}
 		else{
 			$sql = "CREATE DATABASE SDE_db";
 			
 			if ($link->query($sql) === TRUE) {
-				echo "Table SDE_db created successfully";
+				echo "<p>Table SDE_db created successfully</p>";
 			} else {
-				echo "Error creating table: " . $link->error;
+				echo "<p>Error creating table: " . $link->error . "</p>";
 			}
 			$link->close();
 		}
@@ -44,7 +44,7 @@ Date Of Birth: <input type="date" name="date"><br>
 		$fetch = mysql_query($query) or die ("couldn't find anything");*/
 	else
 	{
-		echo "not connected";
+		echo "<p>not connected</p>";
 	}
 ?>
 
