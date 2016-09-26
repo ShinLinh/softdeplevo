@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "precise32"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -68,4 +68,14 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  
+  # Mentioning the SSH Username/Password:
+	config.ssh.username = "vagrant"
+	config.ssh.password = "vagrant"
+  # Begin Configuring
+	config.vm.define "lamp" do|lamp|
+	lamp.vm.hostname = "lamp" # Setting up hostname
+	lamp.vm.network "private_network", ip: "192.168.205.10" # Setting up machine's IP Address
+	lamp.vm.provision :shell, path: "script.sh" # Provisioning with script.sh
+	end
 end
