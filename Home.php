@@ -42,7 +42,7 @@
 		echo "<p>not connected</p>";
 	}
 		if (!empty($_POST)){
-			$sqli="INSERT INTO username(fullname, ) VALUES
+			$sqli="INSERT INTO username(fullname) VALUES
 			('$_POST[fullname]')";	
 			if(mysqli_query($link, $sqli)){
 				echo "Record added";
