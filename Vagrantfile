@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "precise32"
+  config.vm.box = "hashicorp/precise64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -22,12 +22,12 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
-
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
+  config.vm.network "private_network", ip: "192.168.68.8"
+  
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
@@ -68,14 +68,4 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  
-  # Mentioning the SSH Username/Password:
-	config.ssh.username = "vagrant"
-	config.ssh.password = "vagrant"
-  # Begin Configuring
-	config.vm.define "lamp" do|lamp|
-	lamp.vm.hostname = "lamp" # Setting up hostname
-	lamp.vm.network "private_network", ip: "192.168.205.10" # Setting up machine's IP Address
-	lamp.vm.provision :shell, path: "script.sh" # Provisioning with script.sh
-	end
 end
