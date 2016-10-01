@@ -29,7 +29,10 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.68.8"
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
-  
+  # Begin Configuring
+  config.vm.define "lamp" do|lamp|
+
+  lamp.vm.hostname = "lamp" # Setting up hostname
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
@@ -62,7 +65,8 @@ Vagrant.configure("2") do |config|
   # config.push.define "atlas" do |push|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
-  project_name = "projectname"
+  project_name = "softdeplevo"
+
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
@@ -70,6 +74,6 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision :shell, :path => ".provision/script.sh"
-  
+    config.vm.provision :shell, :path => ".provision/script.sh"
+  end
 end
