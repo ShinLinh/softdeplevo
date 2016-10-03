@@ -13,7 +13,7 @@
 
 <?php
 	require_once("LogonDetais-clearDB.php");
-	$link = new mysqli($host, $user, $password, $current_db);
+	$link = @mysqli_connect($host, $user, $password, $current_db);
 ?>
 <div id="submission">
 	<form id ="sub_info" method="POST">
