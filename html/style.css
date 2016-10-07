@@ -20,7 +20,7 @@ input[type=text],input[type=date], select {
 }
 
 input[type=date],select{
-	margin-left :0%;
+	margin-left :1.5%;
 }
 
 label{

@@ -18,7 +18,7 @@
 <div id="submission">
 	<form id ="sub_info" method="POST">
 		<label>Name:</label> <input type="text" name="fullname" placeholder="Your fullname"><br>
-		<label>Date Of Birth:</label> <input type="date" name="date" placeholder="YYYY/MM/DD"><br>
+		<label>Date Of Birth:</label> <input type="date" name="dateofbirth" placeholder="YYYY/MM/DD"><br>
 		<input type="submit" name ="submit" value="submit"/>
 <?php
 	if($link){
@@ -65,6 +65,8 @@
 		if (!empty($_POST)){
 			$sqli="INSERT INTO username(fullname) VALUES
 			('$_POST[fullname]')";	
+			$sqli .="INSERT INTO dob(dob) VALUES
+			('$_POST[dateofbirth')";
 			if(mysqli_query($link, $sqli)){
 				echo "Record added";
 			}
