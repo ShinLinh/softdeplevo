@@ -5,6 +5,4 @@ $host = $url["host"];
 $user = $url["user"];
 $password = $url["pass"];
 $current_db = substr($url["path"], 1);
-/*$current_db = "SDE_db";*/
-
 ?>

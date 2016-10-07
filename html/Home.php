@@ -13,7 +13,6 @@
 
 <?php
 	require_once("LogonDetais-clearDB.php");
-	/*require_once("LogonDetais.php");*/
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
 <div id="submission">
@@ -24,8 +23,7 @@
 <?php
 	if($link){
 		echo "<p>connected</p>";
-		$select_db = mysqli_select_db($link,'SDE_db');
-		if ($select_db == true){
+		if ($link == true){
 			echo "<p>selected</p>";
 		}
 		else{
@@ -36,30 +34,30 @@
 			} else {
 				echo "<p>Error creating Database: " . $link->error . "</p>";
 			}
+		}
 			
 			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'username'(
 						'user_id' INT(10) NOT NULL AUTO_INCREMENT,
 						'fullname' VARCHAR(10) NOT NULL,
 						PRIMARY KEY ('user_id')
 					)
-			") or die(mysql_error);
+			") or die(mysql_error());
 			
 			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'dob'(
 						'dob_id' INT(10) NOT NULL AUTO_INCREMENT,
 						'dob' DATE NOT NULL,
 						PRIMARY KEY ('dob_id')
 					)
-			") or die(mysql_error);
+			") or die(mysql_error());
 			
 			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'subtime'(
 						'subtime_id' INT(10) NOT NULL AUTO_INCREMENT,
 						'submit' TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 						PRIMARY KEY ('subtime_id')
 					)
-			") or die(mysql_error);
+			") or die(mysql_error());
 			
 			$link->close();
-		}
 	}
 	else{
 		echo "<p>not connected</p>";
