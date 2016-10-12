@@ -15,11 +15,11 @@
 	require_once("LogonDetais-clearDB.php");
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
-<div id="submission">
+<div class="wrapper">
 	<form id ="sub_info" method="POST">
-		<label>Name:</label> <input type="text" name="fullname" placeholder="Your fullname"><br>
-		<label>Date Of Birth:</label> <input type="date" name="dateofbirth" placeholder="YYYY/MM/DD"><br>
-		<input type="submit" name ="submit" value="submit"/>
+		<label>Name:</label><input type="text" name="fullname" placeholder="Your fullname" required><br>
+		<label>Date Of Birth:</label> <input type="date" name="dateofbirth" placeholder="YYYY/MM/DD" required><br>
+		<input type="submit" name ="submit" value="submit" onclick="document.getElementById"/>
 <?php
 	if($link){
 		echo "<p>connected</p>";
@@ -36,7 +36,7 @@
 			}
 		}
 			
-			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'username'(
+			/*mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'username'(
 						'user_id' INT(10) NOT NULL AUTO_INCREMENT,
 						'fullname' VARCHAR(10) NOT NULL,
 						PRIMARY KEY ('user_id')
@@ -55,6 +55,16 @@
 						'submit' TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 						PRIMARY KEY ('subtime_id')
 					)
+			") or die(mysql_error());*/
+			
+			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'usertb'(
+						'user_id' INT(10) NOT NULL AUTO_INCREMENT,
+						'fullname' VARCHAR(10) NOT NULL,
+						'dob' DATE NOT NULL,
+						'submit' TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						'lifetime' DATE NOT NULL,
+						PRIMARY KEY ('user_id')
+					)
 			") or die(mysql_error());
 			
 			$link->close();
@@ -63,10 +73,13 @@
 		echo "<p>not connected</p>";
 	}
 		if (!empty($_POST)){
-			$sqli="INSERT INTO username(fullname) VALUES
-			('$_POST[fullname]')";	
-			$sqli .="INSERT INTO dob(dob) VALUES
-			('$_POST[dateofbirth')";
+			$sqli="INSERT INTO usertb(fullname) VALUES
+			('$_POST[fullname]');	
+					INSERT INTO usertb(dob) VALUES
+			('$_POST[dateofbirth]')";
+			//$sqli .="INSERT INTO dob(dob) VALUES
+			//('$_POST[dateofbirth')";
+			//$sqli="INSERT INTO "
 			if(mysqli_query($link, $sqli)){
 				echo "Record added";
 			}
@@ -77,6 +90,10 @@
 		mysqli_close($link);
 ?>
 	</form>
+	<div id = "submit_result">
+		<p>Thank you for your submission</p>
+	</div>
 </div>
+
 </body>
 </html>
