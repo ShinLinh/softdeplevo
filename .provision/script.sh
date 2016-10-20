@@ -38,10 +38,16 @@ sudo apt-get install mysql-server-5.6
 #sudo apt-get -y install php5 libapache2-mod-php5 php5-mcrypt
 sudo apt-get install libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-json
 
-sudo add-apt-repository ppa:ondrej/apache2
-sudo apt-get update
-sudo apt-get install apache2
+#sudo add-apt-repository ppa:ondrej/apache2
+#sudo apt-get update
+#sudo apt-get install apache2 -y
 
+# install ansible and its dependencies
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install ansible -y
 
 # clean /var/www
 sudo rm -Rf /var/www
