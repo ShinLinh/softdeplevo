@@ -17,7 +17,8 @@
 ?>
 <div class="wrapper">
 	<form id ="sub_info" method="POST" action="form_process.php">
-		<label>Name:</label><input type="text" name="fullname" placeholder="Your fullname" required><br>
+		<label>Name:</label><input type="text" name="firstname" placeholder="Your firstname" required>
+							<input type="text" name="lastname" placeholder="Your lastname" required><br>
 		<label>Date Of Birth:</label> <input type="date" name="dateofbirth" placeholder="YYYY/MM/DD" required><br>
 		<input type="submit" name ="submit" value="submit" onclick="document.getElementById"/>
 		<a link="result.php" class="button_a"> show all info </a>
