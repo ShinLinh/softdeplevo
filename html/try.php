@@ -23,7 +23,8 @@
 		<a link="result.php" class="button_a"> show all info </a>
 		
 <?php
-	if($link){
+	if($link)
+{
 		echo "<p>connected</p>";
 		$mysql_usertb = "CREATE TABLE IF NOT EXISTS 'usertb'(
 			'user_id' INT(10) NOT NULL AUTO_INCREMENT,
