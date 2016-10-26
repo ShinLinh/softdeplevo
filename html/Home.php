@@ -12,6 +12,7 @@
 <body>
 
 <?php
+ini_set("display_errors", TRUE);
 	require_once("LogonDetais-clearDB.php");
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
