@@ -15,10 +15,10 @@
 	$link = mysqli_connect($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
-	<form id ="sub_info" method="POST" action="form_process.php">
+	<form id ="sub_info" method="POST" action="">
 		<label>Name:</label><input type="text" name="fullname" placeholder="Your fullname" required><br>
 		<label>Date Of Birth:</label> <input type="text" name="dateofbirth" placeholder="DD-MM-YYY" required><br>
-		<input type="submit" name ="submit" value="submit" onclick="document.getElementById"/>
+		<input type="submit" name ="submit" value="submit" />
 	</form>
 	<a link="result.php" class="button_a"> show all info </a>
 <?php
@@ -35,24 +35,38 @@
 						dob VARCHAR(30) NOT NULL,
 						PRIMARY KEY (user_id)
 					);";
-				$createtab = mysqli_query($link, $mysql_testdb) or die(mysql_error());
-				}
+				$createtab = mysqli_query($link, $mysql_testdb);
 				
-				if(isset($_GET['fullname']) && isset($_GET['dateofbirth']))
-				{
-					$name = $_GET['fullname'];
-					$dob = $_GET['dateofbirth'];
-			
 				if(!$createtab){
 					echo "<p>wrong</p>";
 				}
-				else
-				{
-					$insertQuery = "INSERT INTO testdb(fullname, dob) VALUES
-						('$name', '$dob');";
-					mysqli_query($link, $insertQuery);
-				}
-			}	
+			}
+				
+			
+				
+			if(isset($_GET['fullname']) && isset($_GET['dateofbirth']))
+					{	
+						$name = $_GET['fullname'];
+						$dob = $_GET['dateofbirth'];
+						
+						echo $name;
+						//$insertQuery = "INSERT INTO testdb(fullname, dob) VALUES('$name', '$dob');";
+						//$resultHello = mysqli_query($link, $insertQuery);
+						 // if (mysqli_query($link, $insertQuery)) {
+							// echo "New record created successfully";
+						// } else {
+							// echo "Error: " . $insertQuery . "<br>" . mysqli_error($link);
+						// }
+					}
+					else{
+						echo "<p>not workingsaddasds</p>";
+					}
+						  
+					
+						 // if (!$resultHello)
+							 // {
+								 // echo "<p>hello error</p>";
+							 // }
 		}
 	else{
 		echo "<p>not connected</p>";
