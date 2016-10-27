@@ -18,19 +18,20 @@
 	$link = mysqli_connect($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
-	<form id ="sub_info" method="POST" action="form_process.php">
+	<form id ="sub_info" method="POST" action="">
 		<label>Name:</label><input type="text" name="fullname" placeholder="Your fullname" required><br>
 		<label>Date Of Birth:</label> <input type="text" name="dateofbirth" placeholder="DD-MM-YYY" required><br>
 		<input type="submit" name ="submit" value="submit" onclick="document.getElementById"/>
 	</form>
-	<a link="result.php" class="button_a"> show all info </a>
+	<a href="result.php" class="button_a"> show all info </a>
 <?php
 	if($link)
 		{
 			$try = "SELECT user_id FROM usertb";
 			$result = mysqli_query($link, $try);
 			echo "<p>connected</p>";
-			if(empty($result)){
+			if(empty($result))
+			{
 				echo "<p>empty</p>";
 					$mysql_usertb = "CREATE TABLE IF NOT EXISTS usertb(
 						user_id INT(100) NOT NULL AUTO_INCREMENT,
@@ -41,51 +42,37 @@
 						PRIMARY KEY (user_id)
 					);";
 				$createtab = mysqli_query($link, $mysql_usertb) or die(mysql_error());
-				}
+			}
 				
-				if(isset($_GET['fullname']) && isset($_GET['dateofbirth']))
-				{
-					$name = $_GET['fullname'];
-					$dob = $_GET['dateofbirth'];
-					$date1 = new DateTime($dob);
-					$date2 = date("d-m-Y");
-					$submittime = (string) $date2;
-					$date2 = new DateTime($date2);
+			if (!empty($_POST))
+			{
+				$fullname = $_POST['fullname'];
+				$dob = $_POST['dateofbirth'];
+				$date1 = DateTime($dob);
+				$date2 = date("d-m-Y");
+				$submittime = (string) $date2;
+				$date2 = new DateTime($date2);
 		
-					$interval = $date2->diff($date1);
-					$yearInterval = $interval -> y;
-					$monthInterval = $interval -> m;
-					$dayInterval = $interval -> d;
-					$lifetime = $yearInterval*12*30 + $monthInterval*30 + $dayInterval;
-			
-			
-			
-				if(!$createtab){
-					echo "<p>wrong</p>";
+				$dateGap = $date2->diff($date1);
+				$dayGap = $dateGap -> d;
+				$monthGap = $dateGap -> m;
+				$yearGap = $dateGap -> y;
+				
+				$lifetime = $dayGap + $monthGap*30 + $yearGap*12*30 ;
+					
+				$sqli="INSERT INTO testdb(fullname, dob, submit, lifetime) VALUES
+					('$fullname','$dob','$submittime','$lifetime');";	
+				if(mysqli_query($link, $sqli)){
+					echo "Record added";
 				}
-				else
-				{
-					$insertQuery = "INSERT INTO usertb(fullname, dob, submit, lifetime) VALUES
-						('$name', '$dob', '$submittime', '$lifetime');";
-					mysqli_query($link, $insertQuery);
+				else{
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 				}
-			}	
-		}
+			}		
+		}	
 	else{
 		echo "<p>not connected</p>";
 	}
-	 // if (!empty($_POST)){
-		 // $sqli="INSERT INTO usertb(fullname) VALUES
-		 // ('$_POST[fullname]');	
-			 // INSERT INTO usertb(dob) VALUES
-		 // ('$_POST[dateofbirth]')";
-		// if(mysqli_query($link, $sqli)){
-			// echo "Record added";
-		// }
-		// else{
-			// echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
-		// }
-	// }
 	mysqli_close($link);
  ?>
 </div>

@@ -11,8 +11,8 @@
 <body>
 	<div class="wrapper">
 		<p>thank you for your submission</p>
-		<a link="result.php" >show all submitted result</a>
-		<a link="Home.php" >return</a>
+		<a href="result.php" class="button_a">submitted result</a>
+		<a href="tryVersion1.php" class="button_a">return</a>
 	</div>
 </body>
 </html>

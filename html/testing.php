@@ -20,7 +20,7 @@
 		<label>Date Of Birth:</label> <input type="text" name="dateofbirth" placeholder="DD-MM-YYY" required><br>
 		<input type="submit" name ="submit" value="submit" />
 	</form>
-	<a link="result.php" class="button_a"> show all info </a>
+	<a href="result.php" class="button_a"> show all info </a>
 <?php
 	if($link)
 		{
@@ -29,10 +29,12 @@
 			echo "<p>connected</p>";
 			if(empty($result)){
 				echo "<p>empty</p>";
-					$mysql_testdb = "CREATE TABLE IF NOT EXISTS testdb(
+					$mysql_testdb = "CREATE TABLE IF NOT EXISTS test2db(
 						user_id INT(100) NOT NULL AUTO_INCREMENT,
 						fullname VARCHAR(30) NOT NULL,
 						dob VARCHAR(30) NOT NULL,
+						submit VARCHAR(50) NOT NULL,
+						lifetime INT NOT NULL,
 						PRIMARY KEY (user_id)
 					);";
 				$createtab = mysqli_query($link, $mysql_testdb);
@@ -41,32 +43,19 @@
 					echo "<p>wrong</p>";
 				}
 			}
-				
-			
-				
-			if(isset($_GET['fullname']) && isset($_GET['dateofbirth']))
-					{	
-						$name = $_GET['fullname'];
-						$dob = $_GET['dateofbirth'];
-						
-						echo $name;
-						//$insertQuery = "INSERT INTO testdb(fullname, dob) VALUES('$name', '$dob');";
-						//$resultHello = mysqli_query($link, $insertQuery);
-						 // if (mysqli_query($link, $insertQuery)) {
-							// echo "New record created successfully";
-						// } else {
-							// echo "Error: " . $insertQuery . "<br>" . mysqli_error($link);
-						// }
-					}
-					else{
-						echo "<p>not workingsaddasds</p>";
-					}
-						  
 					
-						 // if (!$resultHello)
-							 // {
-								 // echo "<p>hello error</p>";
-							 // }
+			if (!empty($_POST)){
+				$fullname = $_POST['fullname'];
+				$dob = $_POST['dateofbirth'];
+				 $sqli="INSERT INTO testdb(fullname, dob) VALUES
+				 ('$fullname', '$dob');";	
+				if(mysqli_query($link, $sqli)){
+					echo "Record added";
+				}
+				else{
+					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+				}
+			}		
 		}
 	else{
 		echo "<p>not connected</p>";
