@@ -12,7 +12,8 @@
 <body>
 	<div class="wrapper">
 		<?php
-			require_once("LogonDetais-clearDB.php");
+			//require_once("LogonDetais-clearDB.php");
+			include_once("LogonDetais.php");
 			$link = new mysqli($host, $user, $password, $current_db);
 			if($link){
 				echo "<p>connected</p>";
@@ -34,8 +35,8 @@
 						echo "<td>" . $row['fullname'] . "</td>";
 						echo "<td>" . $row['dob'] . "</td>";
 						echo "<td>" . $row['submit'] . "</td>";
-						//echo "<td>" . $row['lifetime'] . "</td>";
-						echo "<td>" $date= date_diff(. $row['dob'] .,. $row['submit'] .) "</td>";
+						echo "<td>" . $row['lifetime'] . "</td>";
+						//echo "<td>" $date= date_diff(. $row['dob'] .,. $row['submit'] .) "</td>";
 						echo "</tr>";
 					}
 				else {

@@ -2,5 +2,5 @@
 $host = "localhost";
 $user = "root";
 $password = "root";
-$current_db = "SDE_db";
+$current_db = "sde_db";
 ?>
