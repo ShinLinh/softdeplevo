@@ -1,4 +1,14 @@
 ---
-- hosts: hosts
+- hosts: localhost
+  remote_user: root
+  vars:
+    app_git_url: "https://git.heroku.com/softdeplevo.git"
+    app_domain: "https://softdeplevo.herokuapp.com/"
+    app_name: "softdeplevo"
   tasks:
    - debug: msg="Ansible is working!"
+   - name: test connection
+     ping: 
+     remote_user: shin
+   - name: "heroku deploy"
+     git: repo=https://github.com/ShinLinh/softdeplevo.git dest=/srv/checkout clone=no update=no 
