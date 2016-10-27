@@ -12,7 +12,8 @@
 <body>
 
 <?php
-	require_once("LogonDetais-clearDB.php");
+	//require_once("LogonDetais-clearDB.php");
+	require_once("LogonDetais.php");
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
