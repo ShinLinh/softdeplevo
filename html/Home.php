@@ -59,15 +59,15 @@ ini_set("display_errors", TRUE);
 					)
 			") or die(mysql_error());*/
 			
-			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'usertb'(
-						'user_id' INT(10) NOT NULL AUTO_INCREMENT,
-						'fullname' VARCHAR(10) NOT NULL,
-						'dob' DATE NOT NULL,
-						'submit' TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-						'lifetime' DATE NOT NULL,
-						PRIMARY KEY ('user_id')
+			mysqli_query($link,"CREATE TABLE IF NOT EXISTS usertb(
+						user_id INT(10) NOT NULL AUTO_INCREMENT,
+						fullname VARCHAR(10) NOT NULL,
+						dob DATE NOT NULL,
+						submit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						lifetime DATE NOT NULL,
+						PRIMARY KEY (user_id)
 					)
-			") or die(mysql_error());
+			") or die(mysqli_error($link));
 			
 			//$link->close();
 	}

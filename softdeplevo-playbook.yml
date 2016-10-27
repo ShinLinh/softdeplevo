@@ -1,0 +1,4 @@
+---
+- hosts: hosts
+  tasks:
+   - debug: msg="Ansible is working!"

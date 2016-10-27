@@ -12,7 +12,7 @@
 <body>
 
 <?php
-	require_once("LogonDetais-clearDB.php");
+	include("LogonDetais-clearDB.php");
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
@@ -26,13 +26,13 @@
 	if($link)
 {
 		echo "<p>connected</p>";
-		$mysql_usertb = "CREATE TABLE IF NOT EXISTS 'usertb'(
-			'user_id' INT(10) NOT NULL AUTO_INCREMENT,
-			'fullname' VARCHAR(10) NOT NULL,
-			'dob' DATE NOT NULL,
-			'submit' TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-			'lifetime' DATE NOT NULL,
-			PRIMARY KEY ('user_id')
+		$mysql_usertb = "CREATE TABLE IF NOT EXISTS usertb(
+			user_id INT(10) NOT NULL AUTO_INCREMENT,
+			fullname VARCHAR(10) NOT NULL,
+			dob DATE NOT NULL,
+			submit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+			lifetime DATE NOT NULL,
+			PRIMARY KEY (user_id)
 			)"
 		mysqli_query($link,$mysql_usertb) or die(mysql_error());
 			
