@@ -11,7 +11,7 @@ div.wrapper{
     width: 50%;
 }
 
-input[type=text],input[type=date], select {
+input[type=text], select {
     width: 70%;
     padding: 1%;
     margin: 0.5%;
@@ -24,8 +24,8 @@ input#fullname, input#dateofbirth{
 	float:left;
 }
 
-input[type=date],select{
-	margin-left :0%; 
+input.dob_edit{
+	margin-left :0%;
 }
 
 label{

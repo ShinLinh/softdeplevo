@@ -20,7 +20,7 @@
 <div class="wrapper">
 	<form id ="sub_info" method="POST" action="">
 		<label>Name:</label><input type="text" name="fullname" placeholder="Your fullname" required><br>
-		<label>Date Of Birth:</label> <input type="text" name="dateofbirth" placeholder="DD-MM-YYY" required><br>
+		<label>Date Of Birth:</label> <input type="text" name="dateofbirth" id="dob_edit" placeholder="DD-MM-YYY" required><br>
 		<input type="submit" name ="submit" value="submit" onclick="document.getElementById"/>
 	</form>
 	<a href="result.php" class="button_a"> show all info </a>
