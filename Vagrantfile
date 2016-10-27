@@ -76,8 +76,8 @@ Vagrant.configure("2") do |config|
   # SHELL
     config.vm.provision :shell, :path => ".provision/script.sh"
   end
-   config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "playbook.yml"
-  end
+   #config.vm.provision "ansible" do |ansible|
+    #ansible.verbose = "v"
+   # ansible.playbook = "playbook.yml"
+  #end
 end

@@ -12,8 +12,13 @@
 <body>
 
 <?php
+<<<<<<< HEAD
 	//require_once("LogonDetais-clearDB.php");
 	require_once("LogonDetais.php");
+=======
+ini_set("display_errors", TRUE);
+	require_once("LogonDetais-clearDB.php");
+>>>>>>> 661d81b0e728464448914ee6862c8ff9ed5de2a9
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
@@ -59,15 +64,15 @@
 					)
 			") or die(mysql_error());*/
 			
-			mysqli_query($link,"CREATE TABLE IF NOT EXISTS 'usertb'(
-						'user_id' INT(10) NOT NULL AUTO_INCREMENT,
-						'fullname' VARCHAR(10) NOT NULL,
-						'dob' DATE NOT NULL,
-						'submit' TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-						'lifetime' DATE NOT NULL,
-						PRIMARY KEY ('user_id')
+			mysqli_query($link,"CREATE TABLE IF NOT EXISTS usertb(
+						user_id INT(10) NOT NULL AUTO_INCREMENT,
+						fullname VARCHAR(10) NOT NULL,
+						dob DATE NOT NULL,
+						submit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+						lifetime DATE NOT NULL,
+						PRIMARY KEY (user_id)
 					)
-			") or die(mysql_error());
+			") or die(mysqli_error($link));
 			
 			//$link->close();
 	}
