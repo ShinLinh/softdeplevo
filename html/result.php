@@ -23,7 +23,7 @@
 <?php
 	 if($link){
 		echo "<p>connected</p>";
-		$result = mysqli_query($link, "SELECT * FROM usertb");
+		$result = mysqli_query($link, "SELECT * FROM testdb");
 				
 		echo "<table border='1'>
 			<tr>
@@ -33,21 +33,22 @@
 				<th>user lifetime</th>
 			</tr>";
 				
-		if ($result->num_rows > 0) {
+		 if ($result->num_rows > 0) {
 			//output data of each row
 			while($row = mysqli_fetch_array($result))
 			{
-				echo "<tr>";
-				echo "<td>" . $row['fullname'] . "</td>";
-				echo "<td>" . $row['dob'] . "</td>";
-				echo "<td>" . $row['submit'] . "</td>";
-				echo "<td>" . $row['lifetime'] . "</td>";
-				//echo "<td>" $date= date_diff(. $row['dob'] .,. $row['submit'] .) "</td>";
-				echo "</tr>";
+				// echo "<tr>";
+				// echo "<td>" . $row['fullname'] . "</td>";
+				// echo "<td>" . $row['dob'] . "</td>";
+				// echo "<td>" . $row['submittime'] . "</td>";
+				// echo "<td>" . $row['lifetime'] . "</td>";
+				// echo "</tr>";
+				echo"<p>lol</p>";
 			}
-			else {
-				echo "0 results";
-			}
+		}
+		else {
+			echo "<p>0 results</p>";
+		}
 	}
 	else{
 		echo"<p>not connected</p>";

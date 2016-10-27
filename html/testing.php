@@ -29,14 +29,15 @@
 			echo "<p>connected</p>";
 			if(empty($result)){
 				echo "<p>empty</p>";
-					$mysql_testdb = "CREATE TABLE IF NOT EXISTS test2db(
+					$mysql_testdb = "CREATE TABLE IF NOT EXISTS testdb(
 						user_id INT(100) NOT NULL AUTO_INCREMENT,
 						fullname VARCHAR(30) NOT NULL,
 						dob VARCHAR(30) NOT NULL,
-						submit VARCHAR(50) NOT NULL,
+						submittime VARCHAR(50) NOT NULL,
 						lifetime INT NOT NULL,
 						PRIMARY KEY (user_id)
 					);";
+					
 				$createtab = mysqli_query($link, $mysql_testdb);
 				
 				if(!$createtab){
@@ -47,13 +48,26 @@
 			if (!empty($_POST)){
 				$fullname = $_POST['fullname'];
 				$dob = $_POST['dateofbirth'];
-				 $sqli="INSERT INTO testdb(fullname, dob) VALUES
-				 ('$fullname', '$dob');";	
+				$date1 = new DateTime($dob);
+				$date2 = date("d-m-Y");
+				$submittime = (string) $date2;
+				$date2 = new DateTime($date2);
+		
+				$dateGap = $date2->diff($date1);
+				$dayGap = $dateGap -> d;
+				$monthGap = $dateGap -> m;
+				$yearGap = $dateGap -> y;
+				
+				$lifetime = $dayGap + $monthGap*30 + $yearGap*12*30 ;
+					
+				$sqli="INSERT INTO testdb(fullname, dob, submittime, lifetime) VALUES
+					('$fullname','$dob','$submittime','$lifetime');";
+					
 				if(mysqli_query($link, $sqli)){
 					echo "Record added";
 				}
 				else{
-					echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
+					echo "ERROR: Could not able to execute $sqli. " . mysqli_error($link);
 				}
 			}		
 		}
