@@ -11,7 +11,7 @@ div.wrapper{
     width: 50%;
 }
 
-input[type=text],input[type=date], select {
+input[type=text], select {
     width: 70%;
     padding: 1%;
     margin: 0.5%;
@@ -24,15 +24,15 @@ input#fullname, input#dateofbirth{
 	float:left;
 }
 
-input[type=date],select{
-	margin-left :0%; 
+input.dob_edit{
+	margin-left :0%;
 }
 
 label{
 	padding:0.01em 16px
 }
 
-input[type=submit], a.button_a{
+input[type=submit], a.button_a, a.button_a_overlap{
 	width: 20%;
     background-color: #4CAF50;
     color: white;
@@ -47,6 +47,14 @@ a.button_a{
 	text-align: center;
 	float: right;
 	text-decoration: none;
+}
+
+a.button_a_overlap{
+	text-align: center;
+	text-decoration: none;
+	float: right;
+	clear:right;
+	display: inline-block;
 }
 
 input[type=submit]{

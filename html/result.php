@@ -10,43 +10,60 @@
 		<title>Result </title>
 	</head> 
 <body>
-	<div class="wrapper">
-		<?php
-			//require_once("LogonDetais-clearDB.php");
-			include_once("LogonDetais.php");
-			$link = new mysqli($host, $user, $password, $current_db);
-			if($link){
-				echo "<p>connected</p>";
-				$result = mysqli_query($link, "SELECT * FROM usertb")
+<?php
+	//require_once("LogonDetais-clearDB.php");
+	//$link = new mysqli($host, $user, $password, $current_db);
+	include_once("LogonDetails.php");
+	$link = mysqli_connect($host, $user, $password, $current_db);
+?>
+
+
+<div class="wrapper">
+	<p>Version 1</p>
+	<a href="testing.php" class="button_a">submit form page</a>
+	<a href="resultV2.php" class="button_a_overlap">version 2</a>
+<?php
+	if($link)
+		{
+			$try = "SELECT * FROM testdb";
+			$result = mysqli_query($link, $try);
+			
+		
+		if($result){
+			
+			echo "<table border='1'>
+			<tr>
+				<th>User name</th>
+				<th>Date of Birth</th>
+				<th>Submit time</th>
+				<th>User lifetime</th>
+			</tr>";
 				
-				echo "<table border='1'>
-					<tr>
-						<th>User name</th>
-						<th>Date of Birth</th>
-						<th>submit time</th>
-						<th>user lifetime</th>
-					</tr>";
-				
-				if ($result->num_rows > 0) {
-					// output data of each row
-					while($row = mysqli_fetch_array($result))
-					{
-						echo "<tr>";
-						echo "<td>" . $row['fullname'] . "</td>";
-						echo "<td>" . $row['dob'] . "</td>";
-						echo "<td>" . $row['submit'] . "</td>";
-						echo "<td>" . $row['lifetime'] . "</td>";
-						//echo "<td>" $date= date_diff(. $row['dob'] .,. $row['submit'] .) "</td>";
-						echo "</tr>";
-					}
-				else {
-					echo "0 results";
+			if ($result->num_rows > 0) {
+				//output data of each row
+				while($row = mysqli_fetch_array($result))
+				// while($row = mysqli_fetch_array($result))
+				{
+					echo "<tr>";
+					echo "<td>" . $row["fullname"]. "</td>";
+					echo "<td>" . $row["dob"]. "</td>";
+					echo "<td>" . $row["submittime"]. "</td>";
+					echo "<td>" . $row["lifetime"]. "</td>";
+					echo "</tr>";
 				}
 			}
-			else{
-				echo"<p>not connected</p>"
-			}
-		?>
+			else {
+				echo "<p>0 results</p>";
+			}	
+		}
+		else{
+			echo"<p>fail</p>";
+		}
+	}
+	else{
+		echo"<p>not connected</p>";
+	}
+?>
 </div>
 </body>
 </html>
