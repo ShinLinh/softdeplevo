@@ -25,7 +25,7 @@ sudo apt-get -y update
 #sudo apt-get -y install apache2
 sudo add-apt-repository ppa:ondrej/apache2
 sudo apt-get update
-sudo apt-get install apache2 -y
+sudo apt-get -y install apache2 
 
 # Installing MySQL and it's dependencies, Also, setting up root password for MySQL as it will prompt to enter the password during installation
 
@@ -43,14 +43,14 @@ sudo apt-get -y install libapache2-mod-php7.0 php7.0-mysql php7.0-curl php7.0-js
 
 sudo add-apt-repository ppa:ondrej/apache2
 sudo apt-get update
-sudo apt-get install apache2 -y
+sudo apt-get -y install apache2
 
 # install ansible and its dependencies
 sudo apt-get update
-sudo apt-get install software-properties-common
+sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt-get install ansible -y
+sudo apt-get -y install ansible 
 
 # clean /var/www
 sudo rm -Rf /var/www

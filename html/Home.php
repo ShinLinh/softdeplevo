@@ -12,13 +12,8 @@
 <body>
 
 <?php
-<<<<<<< HEAD
-	//require_once("LogonDetais-clearDB.php");
-	require_once("LogonDetais.php");
-=======
-ini_set("display_errors", TRUE);
+	ini_set("display_errors", TRUE);
 	require_once("LogonDetais-clearDB.php");
->>>>>>> 661d81b0e728464448914ee6862c8ff9ed5de2a9
 	$link = new mysqli($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
