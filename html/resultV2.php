@@ -20,7 +20,7 @@
 
 <div class="wrapper">
 	<p>Version 2</p>
-	<a href="testing.php" class="button_a">submit form page</a>
+	<a href="index.php" class="button_a">submit form page</a>
 	<a href="result.php" class="button_a_overlap">version 1</a>
 <?php
 	if($link)
