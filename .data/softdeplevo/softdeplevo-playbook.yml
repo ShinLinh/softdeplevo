@@ -1,14 +1,20 @@
 ---
-- hosts: localhost
-  remote_user: root
-  vars:
-    app_git_url: "https://git.heroku.com/softdeplevo.git"
-    app_domain: "https://softdeplevo.herokuapp.com/"
-    app_name: "softdeplevo"
+- hosts: php
+  vars_files:
+    - vars.yml
+  sudo: yes
+
   tasks:
-   - debug: msg="Ansible is working!"
-   - name: test connection
-     ping: 
-     remote_user: shin
-   - name: "heroku deploy"
-     git: repo=https://github.com/ShinLinh/softdeplevo.git dest=/srv/checkout clone=no update=no 
+   - name: uninstall packages
+     apt: name={{ item }} update_cache=yes state=absent
+     with_items: "{{ system_packages }}"
+  
+   - name: Delete code folders
+     file: path='var/www/softdeplevo' state=absent
+
+  handlers:
+   - name: restart php7.0-fpm
+     service: name=php7.0-fpm state=restarted
+
+   - name: restart nginx
+     service: name=nginx state=restarted
