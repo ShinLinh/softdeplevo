@@ -11,7 +11,7 @@
 <body>
 
 <?php
-	include_once("LogonDetails.php");
+	require_once("LogonDetais-clearDB.php");
 	$link = mysqli_connect($host, $user, $password, $current_db);
 ?>
 <div class="wrapper">
