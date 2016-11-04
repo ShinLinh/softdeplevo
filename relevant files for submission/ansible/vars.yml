@@ -1,0 +1,16 @@
+---
+project_name: softdeplevo
+project_root: /var/www/softdeplevo/
+project_repo: https://github.com/ShinLinh/softdeplevo.git
+system_packages:
+  - apache2 
+  - git
+  - mcrypt
+  - mysql-server
+  - libapache2-mod-php7.0 
+  - php7.0-mysql 
+  - php7.0-curl 
+  - php7.0-json
+  - php7.0-mysqlnd
+  - php7.0-fpm
+  - ansible	
