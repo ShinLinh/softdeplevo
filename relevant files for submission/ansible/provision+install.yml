@@ -29,16 +29,6 @@
      args:
       creates: /usr/local/bin/composer
 
-   - name: composer create-project
-     composer: command=create-project working_dir=/var/www/softdeplevo/html optimize_autoloader=no
-     sudo: yes
-
-   - name: Configure nginx
-     template: src=nginx.conf dest=/etc/nginx/sites-available/default
-     notify:
-      - restart php7.0-fpm
-      - restart nginx
-
   handlers:
    - name: restart php7.0-fpm
      service: name=php7.0-fpm state=restarted
