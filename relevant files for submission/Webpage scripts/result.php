@@ -25,17 +25,6 @@
 <?php
 	if($link)
 		{
-			$dropTableQuery = 'DROP TABLE IF EXISTS `testdb`' or die(mysql_error());
-			$dropTable = mysqli_query ($link, $dropTableQuery);
-			if($dropTable){
-				echo"<br><br><br>";
-				echo"<br>";
-				echo"<p>deleted</p>";
-			}
-			else{
-				echo"<p>not deleted</p>";
-			}
-			
 			
 			$try = "SELECT * FROM testdb";
 			$result = mysqli_query($link, $try);
