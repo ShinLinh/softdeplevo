@@ -28,7 +28,8 @@
 			$dropTableQuery = 'DROP TABLE IF EXISTS `testdbV2`' or die(mysql_error());
 			$dropTable = mysqli_query ($link, $dropTableQuery);
 			if($dropTable){
-				echo"<p>deleted table</p>";
+				echo"<br><br><br>";
+				echo"<br>";
 			}
 			else{
 				echo"<p>not deleted</p>";
@@ -63,38 +64,51 @@
 				<th>Martian time</th>
 			</tr>";
 
-			$dobQuery = "SELECT dob FROM testdb"; //testdb is Table 1
+			$dobQuery = "SELECT fullname, dob, submittime, lifetime FROM testdb"; //testdb is Table 1
 			$dobFetch = mysqli_query($link, $dobQuery);
 			//create an array and insert all dob column values from table 1 to array
 			$dobArray = array(); 
 			$dobIndex = 0;
+			$totalCount = mysqli_num_rows($dobFetch);
+			
 			while($row = mysqli_fetch_assoc($dobFetch)){
-				 $dobArray[$dobIndex] = $row;
-				 $dobIndex++;
+				$name = explode(" ", $row['fullname']);
+
+				$dobArray[$dobIndex]['firstname'] = isset($name[0]) ? $name[0] : '';
+				$dobArray[$dobIndex]['lastname'] = isset($name[1]) ? $name[1] : '';
+				$dobArray[$dobIndex]['dob'] = $row['dob'];
+				$dobArray[$dobIndex]['submittime'] = $row['submittime'];
+				$dobArray[$dobIndex]['lifetime'] = $row['lifetime'];
+				$dobArray[$dobIndex]['martian'] = $row['lifetime'] * 0.025 + $row['lifetime'];
+
+				$dobIndex++;
 			}
 			
-			
-			
 			if($dobFetch){
-				echo"<p>dob selected from table 1</p>";
-				print_r(count($dobArray)); //works fine
-				print_r(array_values( $dobArray )); //works fine
-				// $tryQuery = "INSERT INTO testdbV2 (dob)
-				 // VALUES ('$tryArray')";
-			// $testdob = mysqli_query ($link, $tryQuery);
+				
 			
-			//It says that mysql cannot accept array from php. so i need to convert it 
-			//sql statement
-			$columns = implode(", ",array_keys($dobArray));
-			$escaped_values = array_map(array($mysqliClass, 'real_escape_string'), array_values($dobArray));
-			//expect mysqliClass as library from http://php.net/manual/en/class.mysqli.php
+			
+			$columns = implode(", ",array_keys($dobArray[0]));
 			
 			$dobValues  = implode("', '", $escaped_values);
 			
 			
-			print_r(array_values( $dobValues ));
-				$sql = "INSERT INTO `testdbV2`($columns) VALUES ($dobValues)"; //testdbV2 is table 2
+			for($i = 0; $i < sizeof($dobArray); $i++) {
+
+				foreach ($dobArray[$i] as &$value) {
+					$value = addslashes($value);
+				}
+
+				$dobValues  = array_values($dobArray[$i]);
+				foreach ($dobValues as &$value) {
+					$value = "'" . $value . "'";
+				}
+				$valueSql = implode(",", $dobValues);
+				$sql = "INSERT INTO `testdbV2` ($columns) VALUES ($valueSql);"; //testdbV2 is table 2
+					
 				$dobSql = mysqli_query ($link, $sql);
+				}
+
 			}
 			
 			
@@ -102,96 +116,25 @@
 				echo"<p>dob array did not work</p>";
 			}
 			
-			
-			$nonModifiedDataQuery = "INSERT INTO testdbV2 (submittime, lifetime)
-				SELECT submmittime, lifetime
-				FROM testdb;";
-			$test = mysqli_query ($link, $nonModifiedDataQuery);
-			
-			if($test){
-				echo"<p>non modified data transfered</p>";
-			}
-			else{
-				echo"<p>fail to transfer data from table 1</p>";
-			}
-			
-			//fullname section to seperate first and last name
-			
-			$fullnameQuery = "SELECT fullname FROM testdb";
-			$fullnameFetch = mysqli_query($link, $fullnameQuery); 
-			
-			if($fullnameFetch){
-				echo"<p>fetch full name success</p>";
-				$fullnameArray = array(); 
-				$fullnameIndex = 0;
-				while($row = mysqli_fetch_assoc($fullnameFetch)){
-					$fullnameArray[$fullnameIndex] = $row;
-					$fullnameIndex++;
-				}
-			
-				$firstnameArray = array();
-				$lastnameArray = array();
-				$parts = array();
-				$fAndLNameIndex = 0;
-				$fAndLNamerow = count($fullnameArray);
-				while($fAndLNameIndex <= $fAndLNamerow){
-					$parts[$fAndLNameIndex] = explode(" ", $fullnameArray[$fAndLNameIndex]);
-					$lastnameArray[$fAndLNameIndex] = array_pop($parts[$fAndLNameIndex]);
-					$firstnameArray[$fAndLNameIndex] = implode(" ", $parts[$fAndLNameIndex]);
-					
-					if(array_key_exists($firstnameArray, $fAndLNameIndex)) {
-						if (is_null($firstnameArray[$fAndLNameIndex])) {
-							echo $fAndLNameIndex . ' is null';
-						} else {
-							echo $fAndLNameIndex . ' is set';
-						}
-					}
-					
-					
-					//list($firstnameArray[$fAndLNameIndex], $lastnameArray[$fAndLNameIndex]) = explode(' ', $fullnameArray[$fAndLNameIndex]);
-					print_r($fullnameArray[$fAndLNameIndex]);
-					print_r($firstnameArray[$fAndLNameIndex]);
-					$fAndLNameIndex++;
-				}
-			
-			
-			//print_r(array_values( $fullnameArray )); //works fine
-			
-			print_r ( array_values( $firstnameArray )); //did not work
-			
-			print_r ( array_values( $lastnameArray )); //did not work
-			
-			// $columns = implode(", ",array_keys($fullnameArray));
-			// $escaped_values = array_map('real_escape_string', array_values($fullnameArray));
-			// $values  = implode(", ", $escaped_values);
-			// $sql = "INSERT INTO `testdbV2`($columns) VALUES ($values)";
-			// $test2 = mysqli_query ($link, $sql);
-			
-			}
-			else{
-				echo"<p>separation between first name and last did not work</p>";
-			}
-			
-
-			
-			
-			// if ($result->num_rows > 0) {
+			$selectResult = "SELECT * FROM testdbV2";
+			$resultQuery = mysqli_query($link, $selectResult);
+			if ($resultQuery->num_rows > 0) {
 				//output data of each row
-				// while($row = mysqli_fetch_array($result))	
-				// {
-					// echo "<tr>";
-					// echo "<td>" . $row["firstname"]. "</td>";
-					// echo "<td> </td>"; 
-					// echo "<td>" . $row["dob"]. "</td>";
-					// echo "<td>" . $row["submittime"]. "</td>";
-					// echo "<td>" . $row["lifetime"]. "</td>";
-					// echo "<td> </td>";
-					// echo "</tr>";
-				// }
-			// }
-			// else {
-				// echo "<p>0 results</p>";
-			// }	
+				while($row = mysqli_fetch_array($resultQuery))	
+				{
+					echo "<tr>";
+					echo "<td>" . $row["firstname"]. "</td>";
+					echo "<td>" . $row["lastname"]. "</td>"; 
+					echo "<td>" . $row["dob"]. "</td>";
+					echo "<td>" . $row["submittime"]. "</td>";
+					echo "<td>" . $row["lifetime"]. "</td>";
+					echo "<td>" . $row["martian"]. "</td>";
+					echo "</tr>";
+				}
+			}
+			else {
+				echo "<p>0 results</p>";
+			}	
 		}
 		else{
 			echo"<p>fail</p>";
