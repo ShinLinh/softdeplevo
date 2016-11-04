@@ -1,0 +1,47 @@
+---
+- hosts: php
+  vars_files:
+    - vars.yml
+  sudo: yes
+
+  tasks:
+   - name: install packages
+     apt: name={{ item }} update_cache=yes state=latest
+     with_items: "{{ system_packages }}"
+  
+   - name: create /var/www/ directory
+     file: dest=/var/www/ state=directory owner=www-data group=www-data mode=0700
+
+   - name: install setfacl support
+     become: yes
+     apt: pkg=acl
+
+   - name: Clone git repository
+     git: >
+      dest="{{ project_root }}"
+      repo="{{ project_repo }}"
+      update=no
+     sudo: yes
+     register: cloned
+
+   - name: install composer
+     shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+     args:
+      creates: /usr/local/bin/composer
+
+   - name: composer create-project
+     composer: command=create-project working_dir=/var/www/softdeplevo/html optimize_autoloader=no
+     sudo: yes
+
+   - name: Configure nginx
+     template: src=nginx.conf dest=/etc/nginx/sites-available/default
+     notify:
+      - restart php7.0-fpm
+      - restart nginx
+
+  handlers:
+   - name: restart php7.0-fpm
+     service: name=php7.0-fpm state=restarted
+
+   - name: restart nginx
+     service: name=nginx state=restarted
