@@ -10,11 +10,10 @@
 	</head> 
 <body>
 <?php
-	//require_once("LogonDetais-clearDB.php");
-	//$link = new mysqli($host, $user, $password, $current_db);
-	include_once("LogonDetails.php");
-	//include_once("mysqliClass.php");
-	$link = mysqli_connect($host, $user, $password, $current_db);
+	require_once("LogonDetais-clearDB.php");
+	$link = new mysqli($host, $user, $password, $current_db);
+	//include_once("LogonDetails.php");
+	//$link = mysqli_connect($host, $user, $password, $current_db);
 ?>
 
 
